@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.father{
+    background-color: blanchedalmond;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container{
+    width: 80vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.container .card{
+    width: 300px; ;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+}
+
+img{
+    width: 230px;
+    height: 230px;
+    border-radius: 15px;
+    margin: 0px;
+}
+
+.location{
+    padding: 20px 0px;
+    text-decoration: none;
+    color: white !important;
+    margin-top: 50px;
+    width:230px ;
+    height: 50px;
+    text-align: center;
+    display: block;
+    margin-left: 120px;
+
+}
+
+.loc{
+    width:100px ;
+    height: 50px;
+    display: block;
+   /*  text-align: center !important; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+form input , form textarea{
+    display: block;
+    width: 80%;
+    height:50px;
+    padding-left: 16px;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border-color: darkmagenta solid 1px;
+    outline: none;
+}
+
+.line{
+        text-decoration: none;
+        color: black;
+        
+        
+}
+
+.inf{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+}
+
+.wid{
+    width: 80% !important;
+}
+
+label{
+    margin-left: 50px;
+}
+
+.color{
+    width:100vw;
+    height: 100vh;
+    background-color: blanchedalmond;
+}
+
+.con{
+    background-color: blanchedalmond;
+}
+
+.loca{
+    margin-left: 50px;
+    margin-bottom: 20px;
+}

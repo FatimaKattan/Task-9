@@ -15,7 +15,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger loc">Delete</button>
                 <a href="{{ route('posts.edit', $post->id) }}"><button type="button" class="btn btn-primary loc">Update</button></a>
-            </form></div></a>
+            </form><a>/div></
     @empty
         <h1>There are no posts</h1>
     @endforelse

@@ -18,11 +18,18 @@
             <label for="description">Description:</label>
             <textarea id="description" name="description" class="form-control wid" required>{{ $post->description }}</textarea>
         </div>
-
-        <div class="form-group">
+{{-- بهي الطريقة بينكتب ادخب الملف  --}}
+        {{-- <div class="form-group">
             <label for="image">Image:</label>
             <input type="file" id="image" name="image" class="form-control wid">
             <img src="{{ asset('images/posts/' . $post->image) }}" alt="Current Image" class="loca">
+        </div> --}}
+
+        {{-- بهي الطريقة بضغط عالصورة مباشرة بياخدني لاختار صورة --}}
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" class="form-control wid" style="display: none">
+            <label for="image"><img src="{{ asset('images/posts/' . $post->image) }}" alt="Current Image" class="loca"></label>
         </div>
 
         <button type="submit" class="btn btn-primary wid loca">Update Post</button>

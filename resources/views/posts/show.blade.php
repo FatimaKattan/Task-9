@@ -13,6 +13,7 @@
         <p>{{ $post->description }}</p><br>
         <h5>Profile picture :</h5><br>
         <img src="/images/posts/{{ $post->image }}" alt=""><br>
+        <p>added at: {{ $post->created_at }}</p>
     </div>
 </div>
 </div>

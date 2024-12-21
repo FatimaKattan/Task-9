@@ -2,37 +2,43 @@
 @section('title', 'Edit Post')
 @section('content')
 
-<div class="color">
-    <h1 class="title">Update Post</h1>
+<div class="color_edit">
+    <h1 class="title col-font-title">Update Post</h1>
     <br>
-    <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data" class="color">
         @csrf
         @method('PUT')
 
         <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" class="form-control wid" value="{{ $post->title }}" required>
+            <label for="title" class="col-font-des">Title:</label>
+            <input type="text" id="title" name="title" class="form-control wid border-col inp mb-3" value="{{ $post->title }}" required>
         </div>
 
         <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" class="form-control wid" required>{{ $post->description }}</textarea>
+            <label for="description" class="col-font-des">Description:</label>
+            <textarea id="description" name="description" class="form-control wid border-col inp mb-4" required>{{ $post->description }}</textarea>
         </div>
-{{-- بهي الطريقة بينكتب ادخب الملف  --}}
-        {{-- <div class="form-group">
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" class="form-control wid">
-            <img src="{{ asset('images/posts/' . $post->image) }}" alt="Current Image" class="loca">
-        </div> --}}
 
-        {{-- بهي الطريقة بضغط عالصورة مباشرة بياخدني لاختار صورة --}}
         <div class="form-group">
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" class="form-control wid" style="display: none">
-            <label for="image"><img src="{{ asset('images/posts/' . $post->image) }}" alt="Current Image" class="loca"></label>
+            <label for="images" class="col-font-des">Images:</label>
+            <input type="file" id="images" name="new_images[]" class="form-control wid col-font-des border-col inp mb-4" multiple>
+            <div class="image-gallery">
+                @php
+                    $images = json_decode($post->images, true);
+                @endphp
+                @if ($images)
+                    @foreach ($images as $index => $image)
+                        <div class="image-wrapper">
+                            <img src="{{ asset('images/posts/' . $image) }}" alt="Image for post">
+                            <label for="remove_image_{{ $index }}" class="rev">Remove</label>
+                            <input type="checkbox" id="remove_image_{{ $index }}" name="remove_images[]" value="{{ $image }}" class="checkbox">
+                        </div>
+                    @endforeach
+                @endif
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-primary wid loca">Update Post</button>
+        <button type="submit" class="btn btn-primary wid loca col-inp inpp col-up col-upp">Update Post</button>
     </form>
 </div>
 

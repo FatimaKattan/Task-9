@@ -30,18 +30,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile("image")) {
-            $imageName = $request->file("image")->getClientOriginalName() . "-" . time() . $request->file("image")->getClientOriginalExtension();
-            $request->file("image")->move(public_path("/images/posts"), $imageName);
+        $images = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $image->getClientOriginalName() . '-' . time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images/posts'), $imageName);
+                $images[] = $imageName;
+            }
         }
-
+    
         Post::create([
-            "title" => $request->title,
-            "description" => $request->description,
-            "image" => $imageName
+            'title' => $request->title,
+            'description' => $request->description,
+            'images' => json_encode($images), // تأكد من تخزين الصور بتنسيق مناسب
         ]);
-
-        return redirect()->route("posts.index");
+    
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -92,19 +96,38 @@ class PostController extends Controller
         return redirect()->route('posts.index', $post->id); */
         /* dd($request); */
 
-        if($request->hasFile("image")){
-            $imageName = $request->file("image")->getClientOriginalName() . "-" . time() . $request->file("image")->getClientOriginalExtension();
-            $request->file("image")->move(public_path("/images/posts"), $imageName);
+        if ($request->has('remove_images')) {
+            $existingImages = json_decode($post->images, true);
+            $imagesToKeep = array_diff($existingImages, $request->remove_images);
+            
+            foreach ($request->remove_images as $imageToRemove) {
+                $imagePath = public_path('images/posts/' . $imageToRemove);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); // حذف الصورة من النظام
+                }
+            }
+        } else {
+            $imagesToKeep = json_decode($post->images, true);
         }
-        else{
-            $imageName=$post->image;
+    
+        $newImages = [];
+        if($request->hasFile('new_images')){
+            foreach($request->file('new_images') as $image){
+                $imageName = time() . '-' . $image->getClientOriginalName();
+                $image->move(public_path('images/posts'), $imageName);
+                $newImages[] = $imageName;
+            }
         }
+    
+        $allImages = array_merge($imagesToKeep, $newImages);
+    
         $post->update([
-            "title" => $request->title,
-            "description" => $request->description,
-            "image" => $imageName
+            'title' => $request->title,
+            'description' => $request->description,
+            'images' => json_encode($allImages)
         ]);
-        return redirect()->route('posts.index');
+    
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
     
     
